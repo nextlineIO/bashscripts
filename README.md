@@ -1,5 +1,5 @@
 # bashscripts
-Some scripts  - easy breazy beautiful 
+Some scripts 
  
 ### dmenubookmarks 
    - open single or 'group' bookmark(s) to firefox *new tab
