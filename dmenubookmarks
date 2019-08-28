@@ -1,7 +1,7 @@
 #!/bin/sh
 # Script to launch bookmarks 'New-Tab'
 # When you select 'Lab' via dmenu it will open $LABURLS in the browser each on it's own tab in a new window
-# Otherwise it will open the selected $URL 
+# Otherwise it will open the selected $URL in a new-tab
 # .bookmarks entries should be one per line and should go alias "@" url "Google@https://google.com"
 # Aug 28 2019
 
