@@ -17,7 +17,7 @@ do
     echo "$name - ${address[$name]}"
 done
 
-selection=$(printf '%s\n' "${!address[@]}" Lab| dmenu -i -p "Select a Bookmark")
+selection=$(printf '%s\n' Lab "${!address[@]}"| dmenu -i -p "Select a Bookmark")
 
 addy=${address[$selection]}
 
