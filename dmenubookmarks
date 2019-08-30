@@ -1,18 +1,30 @@
-#!/bin/sh
-# Script to launch bookmarks 'New-Tab'
-# When you select 'Lab' via dmenu it will open $LABURLS in the browser each on it's own tab in a new window
-# Otherwise it will open the selected $URL in a new-tab
-# .bookmarks entries should be one per line and should go alias "@" url "Google@https://google.com"
-# Aug 28 2019
+#!/bin/bash
+# Script to open Lab book marks - one at a time or all together.
+# .bookmarks saved as 'Alias@https://url.com'
+# Dmenu Selection 'Lab' opens all bookmarks
 
 bookmarks=/home/$USER/.bookmarks
-LABURLS=/home/$USER/.laburls
-url=$(sort $bookmarks | sed s/@.*// | dmenu -i -p "Select a Bookmark" | xargs -I % grep "%@" $bookmarks | sed s/.*@//)
 
+declare -A address
+while IFS='@' read -r name add
+do
+    address[$name]=$add
+    echo "$name - ${address[$name]}"
+done < "$bookmarks"
 
-if [[ $url == *"Lab"* ]]
-then
-        xargs -a $LABURLS $BROWSER -new-tab "$line"
+for name in "${!address[@]}"
+do
+    echo "$name - ${address[$name]}"
+done
+
+selection=$(printf '%s\n' "${!address[@]}" Lab| dmenu -i -p "Select a Bookmark")
+
+addy=${address[$selection]}
+
+#
+if [[ "$selection" == *"Lab"* ]]; then
+args=(); for url in "${address[@]}"; do args+=(-new-tab -url "$url"); done; "$BROWSER" "${args[@]}"
+
 else
-        $BROWSER -new-tab $url
+	"$BROWSER" -new-tab "$addy"
 fi
