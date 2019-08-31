@@ -1,7 +1,7 @@
 #!/bin/bash
-# Script to open Lab book marks - one at a time or all together.
+# Script to open All book marks - one at a time or all together.
 # .bookmarks saved as 'Alias@https://url.com'
-# Dmenu Selection 'Lab' opens all bookmarks
+# Dmenu Selection 'All' opens all bookmarks
 
 bookmarks=/home/$USER/.bookmarks
 
@@ -17,12 +17,12 @@ do
     echo "$name - ${address[$name]}"
 done
 
-selection=$(printf '%s\n' Lab "${!address[@]}"| dmenu -i -p "Select a Bookmark")
+selection=$(printf '%s\n' All "${!address[@]}"| dmenu -i -p "Select a Bookmark")
 
 addy=${address[$selection]}
 
 #
-if [[ "$selection" == *"Lab"* ]]; then
+if [[ "$selection" == *"All"* ]]; then
 args=(); for url in "${address[@]}"; do args+=(-new-tab -url "$url"); done; "$BROWSER" "${args[@]}"
 
 else
